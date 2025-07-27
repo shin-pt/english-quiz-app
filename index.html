@@ -1,22 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>英会話クイズ - 旅行フレーズマスター</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             color: #333;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
@@ -26,41 +29,42 @@
 
         .header {
             background: rgba(255, 255, 255, 0.98);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .header h1 {
             color: #667eea;
-            font-size: 2.5em;
-            margin-bottom: 15px;
+            font-size: 2em;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .header p {
             color: #666;
-            font-size: 1.2em;
-            margin-bottom: 20px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
         .mode-selector {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .mode-btn {
-            padding: 15px 30px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
+            border-radius: 25px;
+            font-size: 0.95em;
             cursor: pointer;
             background: white;
             color: #667eea;
@@ -68,10 +72,12 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
+            white-space: nowrap;
+            touch-action: manipulation;
         }
 
-        .mode-btn:hover {
+        .mode-btn:hover, .mode-btn:active {
             background: #667eea;
             color: white;
             transform: translateY(-2px);
@@ -85,10 +91,10 @@
 
         .quiz-container {
             background: rgba(255, 255, 255, 0.98);
-            padding: 40px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             min-height: 400px;
             position: relative;
             overflow: hidden;
@@ -113,55 +119,60 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-top: 20px;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .quiz-counter {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #666;
         }
 
         .quiz-score {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #667eea;
             font-weight: bold;
         }
 
         .quiz-content {
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0;
         }
 
         .question-text {
-            font-size: 2em;
+            font-size: 1.5em;
             color: #333;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             line-height: 1.4;
             font-weight: 600;
+            word-break: keep-all;
         }
 
         .answer-options {
             display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .answer-btn {
-            padding: 20px;
+            padding: 15px;
             border: 2px solid #e0e0e0;
             background: white;
-            border-radius: 15px;
-            font-size: 1.2em;
+            border-radius: 12px;
+            font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
+            touch-action: manipulation;
+            width: 100%;
         }
 
-        .answer-btn:hover {
+        .answer-btn:hover, .answer-btn:active {
             border-color: #667eea;
             background: #f8f9ff;
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
 
         .answer-btn.correct {
@@ -190,33 +201,32 @@
 
         .voice-controls {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .voice-btn {
-            padding: 15px 25px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             background: #667eea;
             color: white;
-            font-size: 1.1em;
+            font-size: 1em;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
+            touch-action: manipulation;
+            white-space: nowrap;
         }
 
-        .voice-btn:hover {
+        .voice-btn:hover, .voice-btn:active {
             background: #5a67d8;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .voice-btn:active {
-            transform: translateY(0);
         }
 
         .voice-btn.listening {
@@ -226,20 +236,20 @@
 
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(244, 67, 54, 0); }
+            70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
             100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
         }
 
         .input-container {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .text-input {
             width: 100%;
-            padding: 20px;
-            font-size: 1.3em;
+            padding: 15px;
+            font-size: 1.1em;
             border: 2px solid #e0e0e0;
-            border-radius: 15px;
+            border-radius: 12px;
             text-align: center;
             transition: all 0.3s ease;
         }
@@ -251,17 +261,18 @@
         }
 
         .submit-btn {
-            padding: 15px 40px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             background: #4caf50;
             color: white;
-            font-size: 1.2em;
+            font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover, .submit-btn:active {
             background: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
@@ -274,12 +285,25 @@
         }
 
         .feedback {
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1em;
             animation: slideIn 0.5s ease;
+            line-height: 1.6;
+        }
+
+        .feedback strong {
+            font-size: 1.1em;
+        }
+
+        .feedback.correct strong {
+            color: #1976d2;
+        }
+
+        .feedback.incorrect strong {
+            color: #d32f2f;
         }
 
         .feedback.correct {
@@ -305,50 +329,51 @@
 
         .results-container {
             background: rgba(255, 255, 255, 0.98);
-            padding: 40px;
-            border-radius: 20px;
+            padding: 30px 20px;
+            border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
         .results-title {
-            font-size: 2.5em;
+            font-size: 2em;
             color: #667eea;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .results-score {
-            font-size: 4em;
+            font-size: 3em;
             color: #4caf50;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
         .results-message {
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .results-details {
             background: #f5f5f5;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
         .restart-btn {
-            padding: 15px 40px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             background: #667eea;
             color: white;
-            font-size: 1.2em;
+            font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
-        .restart-btn:hover {
+        .restart-btn:hover, .restart-btn:active {
             background: #5a67d8;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
@@ -356,34 +381,35 @@
 
         .start-screen {
             text-align: center;
-            padding: 40px;
+            padding: 20px;
         }
 
         .start-screen h2 {
-            font-size: 2em;
+            font-size: 1.8em;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .start-screen p {
-            font-size: 1.2em;
+            font-size: 1em;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.6;
         }
 
         .start-btn {
-            padding: 20px 50px;
+            padding: 15px 40px;
             border: none;
-            border-radius: 50px;
+            border-radius: 30px;
             background: #4caf50;
             color: white;
-            font-size: 1.4em;
+            font-size: 1.2em;
             cursor: pointer;
             transition: all 0.3s ease;
+            touch-action: manipulation;
         }
 
-        .start-btn:hover {
+        .start-btn:hover, .start-btn:active {
             background: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
@@ -392,16 +418,17 @@
         .hint-btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 25px;
+            border-radius: 20px;
             background: #ff9800;
             color: white;
-            font-size: 1em;
+            font-size: 0.95em;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 15px;
+            touch-action: manipulation;
         }
 
-        .hint-btn:hover {
+        .hint-btn:hover, .hint-btn:active {
             background: #f57c00;
             transform: translateY(-2px);
         }
@@ -410,7 +437,7 @@
             color: #ff9800;
             font-style: italic;
             margin-top: 15px;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .permission-info {
@@ -418,13 +445,15 @@
             border: 1px solid #ffeaa7;
             padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 15px 0;
             text-align: left;
+            font-size: 0.9em;
         }
 
         .permission-info h3 {
             color: #856404;
             margin-bottom: 10px;
+            font-size: 1.1em;
         }
 
         .permission-info ol {
@@ -436,22 +465,207 @@
             margin-bottom: 5px;
         }
 
-        @media (max-width: 768px) {
+        /* スマホ専用のスタイル調整 */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .header {
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 15px;
+            }
+
             .header h1 {
-                font-size: 2em;
+                font-size: 1.5em;
+                gap: 5px;
             }
-            
+
+            .header p {
+                font-size: 0.9em;
+                margin-bottom: 10px;
+            }
+
+            .mode-selector {
+                gap: 8px;
+            }
+
             .mode-btn {
-                font-size: 1em;
-                padding: 12px 20px;
+                padding: 10px 15px;
+                font-size: 0.85em;
+                border-radius: 20px;
             }
-            
+
+            .quiz-container {
+                padding: 15px;
+                border-radius: 10px;
+                min-height: 350px;
+            }
+
+            .quiz-header {
+                margin-bottom: 15px;
+                font-size: 0.9em;
+            }
+
             .question-text {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .answer-btn {
+                padding: 12px;
+                font-size: 1em;
+                border-radius: 10px;
+            }
+
+            .voice-controls {
+                gap: 8px;
+                margin-bottom: 15px;
+            }
+
+            .voice-btn {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .start-screen h2 {
                 font-size: 1.5em;
             }
-            
+
+            .start-btn {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+
+            .results-title {
+                font-size: 1.6em;
+            }
+
+            .results-score {
+                font-size: 2.5em;
+            }
+
+            /* タッチデバイス用の調整 */
+            .answer-btn:active {
+                transform: scale(0.98);
+            }
+
+            .voice-btn:active {
+                transform: scale(0.95);
+            }
+
+            /* 小さい画面での文字折り返し対策 */
+            .mode-btn {
+                flex: 0 0 calc(50% - 4px);
+                justify-content: center;
+            }
+
+            /* ヒント表示の調整 */
+            .hint-text {
+                font-size: 0.9em;
+            }
+
+            /* 入力フィールドの調整 */
+            .text-input {
+                font-size: 16px; /* iOSのズーム防止 */
+                padding: 12px;
+            }
+        }
+
+        /* タブレット向けの調整 */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .mode-btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .question-text {
+                font-size: 1.8em;
+            }
+
             .quiz-container {
-                padding: 30px 20px;
+                padding: 30px;
+            }
+        }
+
+        /* 横向き対応 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 10px 20px;
+                margin-bottom: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .quiz-container {
+                min-height: 300px;
+                padding: 15px;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+
+            .answer-btn {
+                padding: 10px;
+            }
+        }
+
+        /* アクセシビリティ向上 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ダークモード対応 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            }
+
+            .header,
+            .quiz-container,
+            .results-container {
+                background: rgba(45, 55, 72, 0.95);
+                color: #e2e8f0;
+            }
+
+            .question-text {
+                color: #e2e8f0;
+            }
+
+            .answer-btn {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #718096;
+            }
+
+            .answer-btn:hover,
+            .answer-btn:active {
+                background: #2d3748;
+                border-color: #667eea;
+            }
+
+            .mode-btn {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #667eea;
+            }
+
+            .mode-btn.active,
+            .mode-btn:hover {
+                background: #667eea;
+                color: white;
             }
         }
     </style>
@@ -460,7 +674,7 @@
     <div class="container">
         <div class="header">
             <h1>🎯 英会話クイズ</h1>
-            <p>旅行で使える英会話フレーズをクイズで楽しく学習！</p>
+            <p>旅行で使える英会話フレーズをクイズで楽しく学習！<br>全130問から毎回ランダムに10問出題されます</p>
             <div class="mode-selector" id="modeSelector">
                 <button class="mode-btn active" onclick="selectMode('translate')">
                     📝 翻訳クイズ
@@ -482,8 +696,54 @@
                 <h2>📝 翻訳クイズ</h2>
                 <p>
                     日本語のフレーズを見て、正しい英訳を選んでください。<br>
-                    全20問のクイズに挑戦しましょう！
+                    130問の中からランダムに10問出題されます！
                 </p>
+                
+                <!-- カテゴリー選択 -->
+                <div class="category-selector" style="margin: 20px 0;">
+                    <h3 style="font-size: 1.2em; margin-bottom: 10px; color: #667eea;">
+                        <i class="fas fa-folder-open"></i> カテゴリーを選択
+                    </h3>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button class="category-btn active" onclick="selectCategory('all')" 
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            <i class="fas fa-globe"></i> 全て (130問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('greeting')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🙋 挨拶 (3問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('airport')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            ✈️ 空港 (24問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('hotel')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🏨 ホテル (16問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('restaurant')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🍽️ レストラン (26問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('shopping')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🛍️ 買い物 (20問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('transportation')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🚕 交通 (19問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('emergency')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🚨 緊急時 (18問)
+                        </button>
+                        <button class="category-btn" onclick="selectCategory('communication')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            💬 会話 (4問)
+                        </button>
+                    </div>
+                </div>
+                
                 <button class="start-btn" onclick="startQuiz()">
                     クイズを開始 🚀
                 </button>
@@ -492,38 +752,213 @@
                     <button class="voice-btn" onclick="testVoice()" style="font-size: 0.9em; padding: 10px 20px;">
                         🔊 音声テスト
                     </button>
+                    <button class="voice-btn" onclick="checkVoiceQuality()" style="font-size: 0.9em; padding: 10px 20px; background: #673ab7;">
+                        🎯 音声品質診断
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // フレーズデータ
+        // フレーズデータ（拡張版）
         const phrases = [
+            // 基本的な挨拶
             { id: 1, japanese: "こんにちは", english: "Hello", category: "greeting", difficulty: 1 },
             { id: 2, japanese: "ありがとうございます", english: "Thank you", category: "greeting", difficulty: 1 },
             { id: 3, japanese: "すみません", english: "Excuse me", category: "greeting", difficulty: 1 },
-            { id: 4, japanese: "これはいくらですか？", english: "How much is this?", category: "shopping", difficulty: 1 },
-            { id: 5, japanese: "クレジットカードは使えますか？", english: "Do you accept credit cards?", category: "shopping", difficulty: 2 },
-            { id: 6, japanese: "トイレはどこですか？", english: "Where is the restroom?", category: "direction", difficulty: 1 },
-            { id: 7, japanese: "道に迷いました", english: "I'm lost", category: "direction", difficulty: 2 },
-            { id: 8, japanese: "英語を話せますか？", english: "Do you speak English?", category: "communication", difficulty: 1 },
-            { id: 9, japanese: "もう一度言ってください", english: "Please say that again", category: "communication", difficulty: 2 },
-            { id: 10, japanese: "チェックインをお願いします", english: "I'd like to check in", category: "hotel", difficulty: 2 },
-            { id: 11, japanese: "予約があります", english: "I have a reservation", category: "hotel", difficulty: 2 },
-            { id: 12, japanese: "メニューをください", english: "May I have the menu?", category: "restaurant", difficulty: 1 },
-            { id: 13, japanese: "お勧めは何ですか？", english: "What do you recommend?", category: "restaurant", difficulty: 2 },
-            { id: 14, japanese: "お会計をお願いします", english: "Check please", category: "restaurant", difficulty: 1 },
-            { id: 15, japanese: "アレルギーがあります", english: "I have allergies", category: "restaurant", difficulty: 3 },
-            { id: 16, japanese: "タクシーを呼んでください", english: "Please call a taxi", category: "transportation", difficulty: 2 },
-            { id: 17, japanese: "空港までお願いします", english: "To the airport please", category: "transportation", difficulty: 2 },
-            { id: 18, japanese: "いつ到着しますか？", english: "When will we arrive?", category: "transportation", difficulty: 2 },
-            { id: 19, japanese: "助けてください", english: "Help me please", category: "emergency", difficulty: 1 },
-            { id: 20, japanese: "医者を呼んでください", english: "Please call a doctor", category: "emergency", difficulty: 3 }
+            
+            // 空港 - フライト確認
+            { id: 4, japanese: "フライトを確認したいのですが", english: "I want to confirm my flight", category: "airport", difficulty: 2 },
+            { id: 5, japanese: "チケット番号を教えてもらえますか？", english: "Can you tell me your ticket number?", category: "airport", difficulty: 2 },
+            { id: 6, japanese: "番号は...です", english: "The number is...", category: "airport", difficulty: 1 },
+            { id: 7, japanese: "チケットは確認されました", english: "Your tickets are confirmed", category: "airport", difficulty: 2 },
+            
+            // 空港 - チェックイン
+            { id: 8, japanese: "チケットとIDを見せていただけますか？", english: "Can I see your ticket and ID, please?", category: "airport", difficulty: 2 },
+            { id: 9, japanese: "はい、どうぞ", english: "Sure, here you go", category: "airport", difficulty: 1 },
+            { id: 10, japanese: "今日他に一緒に旅行される方はいらっしゃいますか？", english: "Is anybody else traveling with you today?", category: "airport", difficulty: 3 },
+            { id: 11, japanese: "いいえ、一人で旅行しています", english: "No, I'm traveling alone", category: "airport", difficulty: 2 },
+            
+            // 空港 - セキュリティ質問
+            { id: 12, japanese: "知らない人から何かを飛行機に持ち込むよう頼まれましたか？", english: "Did someone you don't know ask you to take something on the plane?", category: "airport", difficulty: 3 },
+            { id: 13, japanese: "手荷物を放置したことはありますか？", english: "Did you leave your baggage unattended at any time?", category: "airport", difficulty: 3 },
+            { id: 14, japanese: "武器を持っていますか？", english: "Are you carrying any weapons?", category: "airport", difficulty: 2 },
+            { id: 15, japanese: "申告するものはありますか？", english: "Do you have anything to declare?", category: "airport", difficulty: 2 },
+            
+            // 空港 - ゲート案内
+            { id: 16, japanese: "ゲートはどこでしたっけ？", english: "Which gate did you say it was?", category: "airport", difficulty: 2 },
+            { id: 17, japanese: "ゲート番号は何番でしたっけ？", english: "What was the gate number again?", category: "airport", difficulty: 2 },
+            { id: 18, japanese: "ゲートの方向を教えてもらえますか？", english: "Can you point me toward the gate?", category: "airport", difficulty: 2 },
+            { id: 19, japanese: "5番ゲートにはどうやって行けばいいですか？", english: "How do I get to gate number 5?", category: "airport", difficulty: 2 },
+            
+            // 空港 - ゲートアナウンス
+            { id: 20, japanese: "ゲートが変更になりました", english: "There has been a gate change", category: "airport", difficulty: 2 },
+            { id: 21, japanese: "ニューヨーク行きの237便の搭乗が始まりました", english: "Flight 237 to New York is now boarding", category: "airport", difficulty: 3 },
+            { id: 22, japanese: "156便は天候の影響で遅れています", english: "Flight 156 has been delayed due to weather conditions", category: "airport", difficulty: 3 },
+            { id: 23, japanese: "89便は欠航になりました", english: "Flight 89 has been canceled", category: "airport", difficulty: 2 },
+            
+            // 機内
+            { id: 24, japanese: "ご搭乗ありがとうございます", english: "Welcome aboard", category: "airport", difficulty: 1 },
+            { id: 25, japanese: "シートベルトをお締めください", english: "Please fasten your seatbelt", category: "airport", difficulty: 1 },
+            { id: 26, japanese: "シートを元に戻してください", english: "Please put your seat back upright", category: "airport", difficulty: 2 },
+            { id: 27, japanese: "乱気流に遭遇しています", english: "We're experiencing some turbulence", category: "airport", difficulty: 2 },
+            
+            // ホテル - チェックイン
+            { id: 28, japanese: "[名前]で予約しています", english: "I have a reservation under [Your Name]", category: "hotel", difficulty: 2 },
+            { id: 29, japanese: "早めのチェックインは可能ですか？", english: "Can I get an early check-in?", category: "hotel", difficulty: 2 },
+            { id: 30, japanese: "チェックアウトは何時ですか？", english: "What time is check-out?", category: "hotel", difficulty: 1 },
+            { id: 31, japanese: "遅めのチェックアウトは可能ですか？", english: "Can I get a late check-out?", category: "hotel", difficulty: 2 },
+            
+            // ホテル - 部屋の設備
+            { id: 32, japanese: "部屋に問題があります", english: "There's an issue with my room", category: "hotel", difficulty: 2 },
+            { id: 33, japanese: "エアコンが動きません", english: "The air conditioning isn't working", category: "hotel", difficulty: 2 },
+            { id: 34, japanese: "タオルを追加でもらえますか？", english: "Can I get extra towels?", category: "hotel", difficulty: 1 },
+            { id: 35, japanese: "枕を追加でもらえますか？", english: "Can I get extra pillows?", category: "hotel", difficulty: 1 },
+            
+            // ホテル - サービス
+            { id: 36, japanese: "ルームサービスは利用できますか？", english: "Can I get room service?", category: "hotel", difficulty: 2 },
+            { id: 37, japanese: "Wi-Fiはありますか？どうやって接続しますか？", english: "Is there Wi-Fi, and how do I connect?", category: "hotel", difficulty: 2 },
+            { id: 38, japanese: "ジムはどこにありますか？", english: "Where can I find the gym?", category: "hotel", difficulty: 1 },
+            { id: 39, japanese: "タクシーを呼んでもらえますか？", english: "Can you call a taxi for me?", category: "hotel", difficulty: 2 },
+            
+            // ホテル - 案内・推薦
+            { id: 40, japanese: "近くのいいレストランを教えてもらえますか？", english: "Can you recommend a good restaurant nearby?", category: "hotel", difficulty: 2 },
+            { id: 41, japanese: "ダウンタウンへの最良のアクセス方法は？", english: "What's the best way to get downtown?", category: "hotel", difficulty: 2 },
+            { id: 42, japanese: "歩いて行ける観光地はありますか？", english: "Are there any attractions within walking distance?", category: "hotel", difficulty: 3 },
+            { id: 43, japanese: "チェックインまで荷物を預かってもらえますか？", english: "Could you keep my luggage until check-in?", category: "hotel", difficulty: 2 },
+            
+            // レストラン - 入店・席の案内
+            { id: 44, japanese: "二人用のテーブルをお願いします", english: "Table for two, please", category: "restaurant", difficulty: 1 },
+            { id: 45, japanese: "ご予約はありますか？", english: "Do you have a reservation?", category: "restaurant", difficulty: 1 },
+            { id: 46, japanese: "どのくらい待ちますか？", english: "How long is the wait?", category: "restaurant", difficulty: 1 },
+            { id: 47, japanese: "窓際の席に座れますか？", english: "Can we sit by the window?", category: "restaurant", difficulty: 2 },
+            
+            // レストラン - 注文
+            { id: 48, japanese: "メニューを見せてもらえますか？", english: "Can I see the menu, please?", category: "restaurant", difficulty: 1 },
+            { id: 49, japanese: "何がおすすめですか？", english: "What do you recommend?", category: "restaurant", difficulty: 2 },
+            { id: 50, japanese: "チキンをお願いします", english: "I'll have the chicken, please", category: "restaurant", difficulty: 1 },
+            { id: 51, japanese: "どのように調理しますか？", english: "How would you like that cooked?", category: "restaurant", difficulty: 2 },
+            { id: 52, japanese: "ミディアムレアでお願いします", english: "Medium rare, please", category: "restaurant", difficulty: 2 },
+            { id: 53, japanese: "これを別添えでもらえますか？", english: "Can I get this on the side?", category: "restaurant", difficulty: 2 },
+            
+            // レストラン - 飲み物
+            { id: 54, japanese: "ワインリストを見せてもらえますか？", english: "Can I see the wine list?", category: "restaurant", difficulty: 2 },
+            { id: 55, japanese: "赤ワインをグラスでお願いします", english: "I'll have a glass of red wine", category: "restaurant", difficulty: 2 },
+            { id: 56, japanese: "私は水だけで結構です", english: "Just water for me, please", category: "restaurant", difficulty: 1 },
+            { id: 57, japanese: "おかわりをもらえますか？", english: "Can I get a refill?", category: "restaurant", difficulty: 1 },
+            
+            // レストラン - 食事中・追加注文
+            { id: 58, japanese: "いかがですか？", english: "How is everything?", category: "restaurant", difficulty: 1 },
+            { id: 59, japanese: "すべて美味しいです！", english: "Everything is delicious!", category: "restaurant", difficulty: 1 },
+            { id: 60, japanese: "パンをもう少しもらえますか？", english: "Can I get some more bread?", category: "restaurant", difficulty: 1 },
+            { id: 61, japanese: "ケチャップを持ってきてもらえますか？", english: "Could you bring me some ketchup?", category: "restaurant", difficulty: 2 },
+            
+            // レストラン - 会計
+            { id: 62, japanese: "会計をお願いします", english: "Can I get the check, please?", category: "restaurant", difficulty: 1 },
+            { id: 63, japanese: "割り勘にします", english: "We'll split the bill", category: "restaurant", difficulty: 2 },
+            { id: 64, japanese: "チップは含まれていますか？", english: "Is the tip included?", category: "restaurant", difficulty: 2 },
+            { id: 65, japanese: "お釣りはとっておいてください", english: "Keep the change", category: "restaurant", difficulty: 1 },
+            
+            // レストラン - 苦情・特別な要求
+            { id: 66, japanese: "これは注文したものと違います", english: "This isn't what I ordered", category: "restaurant", difficulty: 2 },
+            { id: 67, japanese: "これを下げてもらえますか？", english: "Can you take this back?", category: "restaurant", difficulty: 2 },
+            { id: 68, japanese: "ナッツアレルギーです", english: "I'm allergic to nuts", category: "restaurant", difficulty: 2 },
+            { id: 69, japanese: "持ち帰り用の箱をもらえますか？", english: "Can I get a to-go box?", category: "restaurant", difficulty: 1 },
+            
+            // 買い物 - 商品探し
+            { id: 70, japanese: "すみません、...はどこで見つけられますか？", english: "Excuse me, where can I find...?", category: "shopping", difficulty: 2 },
+            { id: 71, japanese: "これの違うサイズはありますか？", english: "Do you have this in a different size?", category: "shopping", difficulty: 2 },
+            { id: 72, japanese: "これの違う色はありますか？", english: "Do you have this in a different color?", category: "shopping", difficulty: 2 },
+            { id: 73, japanese: "見ているだけです、ありがとう", english: "I'm just looking, thanks", category: "shopping", difficulty: 1 },
+            
+            // 買い物 - 価格・支払い
+            { id: 74, japanese: "これはいくらですか？", english: "How much is this?", category: "shopping", difficulty: 1 },
+            { id: 75, japanese: "これはセール中ですか？", english: "Is this on sale?", category: "shopping", difficulty: 1 },
+            { id: 76, japanese: "クレジットカードは使えますか？", english: "Do you accept credit cards?", category: "shopping", difficulty: 2 },
+            { id: 77, japanese: "現金で支払えますか？", english: "Can I pay with cash?", category: "shopping", difficulty: 1 },
+            
+            // 買い物 - 試着・返品
+            { id: 78, japanese: "これを試着できますか？", english: "Can I try this on?", category: "shopping", difficulty: 1 },
+            { id: 79, japanese: "試着室はどこですか？", english: "Where is the fitting room?", category: "shopping", difficulty: 1 },
+            { id: 80, japanese: "これはサイズが合いません", english: "This doesn't fit", category: "shopping", difficulty: 1 },
+            { id: 81, japanese: "これを返品できますか？", english: "Can I return this?", category: "shopping", difficulty: 2 },
+            
+            // 買い物 - レジ・会計
+            { id: 82, japanese: "これをください", english: "I'll take this", category: "shopping", difficulty: 1 },
+            { id: 83, japanese: "レシートをもらえますか？", english: "Can I get a receipt?", category: "shopping", difficulty: 1 },
+            { id: 84, japanese: "袋は必要ですか？", english: "Do you need a bag?", category: "shopping", difficulty: 1 },
+            { id: 85, japanese: "袋は結構です、ありがとう", english: "No bag, thanks", category: "shopping", difficulty: 1 },
+            
+            // 買い物 - 店舗情報
+            { id: 86, japanese: "何時に開店しますか？", english: "What time do you open?", category: "shopping", difficulty: 1 },
+            { id: 87, japanese: "何時に閉店しますか？", english: "What time do you close?", category: "shopping", difficulty: 1 },
+            { id: 88, japanese: "今日はプロモーションはありますか？", english: "Are there any promotions today?", category: "shopping", difficulty: 2 },
+            { id: 89, japanese: "セールはありますか？", english: "Do you have any sales?", category: "shopping", difficulty: 1 },
+            
+            // 交通機関 - タクシー
+            { id: 90, japanese: "空いていますか？", english: "Are you free?", category: "transportation", difficulty: 1 },
+            { id: 91, japanese: "...まで行ってもらえますか？", english: "Can you take me to...?", category: "transportation", difficulty: 2 },
+            { id: 92, japanese: "いくらくらいかかりますか？", english: "How much will it cost?", category: "transportation", difficulty: 2 },
+            { id: 93, japanese: "メーターをつけてもらえますか？", english: "Can you turn on the meter?", category: "transportation", difficulty: 2 },
+            { id: 94, japanese: "ここで止めてください", english: "Please stop here", category: "transportation", difficulty: 1 },
+            
+            // 交通機関 - 地下鉄・バス
+            { id: 95, japanese: "どこでチケットを買えますか？", english: "Where can I buy a ticket?", category: "transportation", difficulty: 2 },
+            { id: 96, japanese: "...に行くのはどの線ですか？", english: "Which line goes to...?", category: "transportation", difficulty: 2 },
+            { id: 97, japanese: "これは正しいホームですか？", english: "Is this the right platform?", category: "transportation", difficulty: 2 },
+            { id: 98, japanese: "このバスは...に行きますか？", english: "Does this bus go to...?", category: "transportation", difficulty: 2 },
+            
+            // 交通機関 - 道案内
+            { id: 99, japanese: "すみません、...にはどうやって行けばいいですか？", english: "Excuse me, how do I get to...?", category: "transportation", difficulty: 2 },
+            { id: 100, japanese: "歩いて行ける距離ですか？", english: "Is it within walking distance?", category: "transportation", difficulty: 2 },
+            { id: 101, japanese: "まっすぐ行ってください", english: "Go straight", category: "transportation", difficulty: 1 },
+            { id: 102, japanese: "信号で左に曲がってください", english: "Turn left at the traffic light", category: "transportation", difficulty: 2 },
+            { id: 103, japanese: "右手にあります", english: "It's on your right", category: "transportation", difficulty: 1 },
+            { id: 104, japanese: "見逃すことはないでしょう", english: "You can't miss it", category: "transportation", difficulty: 2 },
+            
+            // 交通機関 - レンタカー
+            { id: 105, japanese: "車を借りたいのですが", english: "I'd like to rent a car", category: "transportation", difficulty: 2 },
+            { id: 106, japanese: "コンパクトカーはありますか？", english: "Do you have any compact cars available?", category: "transportation", difficulty: 2 },
+            { id: 107, japanese: "保険は含まれていますか？", english: "Is insurance included?", category: "transportation", difficulty: 2 },
+            { id: 108, japanese: "車はどこで返却しますか？", english: "Where do I return the car?", category: "transportation", difficulty: 2 },
+            
+            // 緊急時 - 基本的な緊急時
+            { id: 109, japanese: "助けて！", english: "Help!", category: "emergency", difficulty: 1 },
+            { id: 110, japanese: "助けが必要です", english: "I need help", category: "emergency", difficulty: 1 },
+            { id: 111, japanese: "911に電話して！", english: "Call 911!", category: "emergency", difficulty: 1 },
+            { id: 112, japanese: "救急車を呼んでください", english: "Please call an ambulance", category: "emergency", difficulty: 2 },
+            
+            // 緊急時 - 健康・医療
+            { id: 113, japanese: "気分がよくありません", english: "I don't feel well", category: "emergency", difficulty: 1 },
+            { id: 114, japanese: "頭痛がします", english: "I have a headache", category: "emergency", difficulty: 1 },
+            { id: 115, japanese: "めまいがします", english: "I feel dizzy", category: "emergency", difficulty: 1 },
+            { id: 116, japanese: "最寄りの病院はどこですか？", english: "Where is the nearest hospital?", category: "emergency", difficulty: 2 },
+            { id: 117, japanese: "...にアレルギーがあります", english: "I'm allergic to...", category: "emergency", difficulty: 2 },
+            { id: 118, japanese: "...の薬を服用しています", english: "I take medication for...", category: "emergency", difficulty: 3 },
+            
+            // 緊急時 - 盗難・紛失
+            { id: 119, japanese: "財布をなくしました", english: "I lost my wallet", category: "emergency", difficulty: 1 },
+            { id: 120, japanese: "パスポートを盗まれました", english: "My passport was stolen", category: "emergency", difficulty: 2 },
+            { id: 121, japanese: "警察署はどこですか？", english: "Where is the police station?", category: "emergency", difficulty: 2 },
+            { id: 122, japanese: "警察に届け出る必要があります", english: "I need to file a police report", category: "emergency", difficulty: 3 },
+            
+            // 緊急時 - 連絡先・大使館
+            { id: 123, japanese: "日本大使館はどこですか？", english: "Where is the Japanese Embassy?", category: "emergency", difficulty: 2 },
+            { id: 124, japanese: "大使館に連絡する必要があります", english: "I need to contact my embassy", category: "emergency", difficulty: 3 },
+            { id: 125, japanese: "電話を使わせてもらえますか？", english: "Can I use your phone?", category: "emergency", difficulty: 1 },
+            { id: 126, japanese: "私は日本人です", english: "I'm Japanese", category: "emergency", difficulty: 1 },
+            
+            // 緊急時 - 言葉の壁
+            { id: 127, japanese: "英語を話せますか？", english: "Do you speak English?", category: "communication", difficulty: 1 },
+            { id: 128, japanese: "理解できません", english: "I don't understand", category: "communication", difficulty: 1 },
+            { id: 129, japanese: "ゆっくり話してもらえますか？", english: "Can you speak slowly?", category: "communication", difficulty: 2 },
+            { id: 130, japanese: "書いてもらえますか？", english: "Can you write it down?", category: "communication", difficulty: 2 }
         ];
 
         // ゲーム状態
         let currentMode = 'translate';
+        let currentCategory = 'all'; // 選択されたカテゴリー
         let currentQuestionIndex = 0;
         let score = 0;
         let questions = [];
@@ -531,20 +966,187 @@
         let isAnswering = false;
         let recognition = null;
         let isSpeechAvailable = false;
+        const QUESTIONS_PER_QUIZ = 10; // クイズ1回あたりの問題数
+
+        // ブラウザ検出関数
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            const isIOS = /iPhone|iPad|iPod/i.test(ua);
+            const isAndroid = /Android/i.test(ua);
+            const isSafari = /Safari/i.test(ua) && !/Chrome/i.test(ua) && !/CriOS/i.test(ua);
+            const isChrome = /Chrome/i.test(ua) || /CriOS/i.test(ua);
+            
+            return {
+                isIOS,
+                isAndroid,
+                isSafari,
+                isChrome,
+                isMobile: isIOS || isAndroid,
+                browser: isSafari ? 'Safari' : (isChrome ? 'Chrome' : 'Other')
+            };
+        }
+
+        // Safari/Chrome に最適化された音声選択
+        function selectBestVoiceForBrowser(lang = 'en-US') {
+            const voices = window.speechSynthesis.getVoices();
+            const browser = detectBrowser();
+            
+            console.log(`ブラウザ: ${browser.browser}, iOS: ${browser.isIOS}, Android: ${browser.isAndroid}`);
+            console.log('利用可能な音声数:', voices.length);
+            
+            let selectedVoice = null;
+            
+            // Safari (iOS)
+            if (browser.isSafari && browser.isIOS) {
+                // Safari iOS で最も自然な音声（優先順位順）
+                const safariPreferences = [
+                    // Premium voices (要ダウンロード、最高品質)
+                    { name: 'Samantha (Enhanced)', quality: 10 },
+                    { name: 'Samantha', quality: 9 },
+                    { name: 'Alex (Enhanced)', quality: 10 },
+                    { name: 'Alex', quality: 9 },
+                    { name: 'Allison (Enhanced)', quality: 9 },
+                    { name: 'Ava (Enhanced)', quality: 9 },
+                    { name: 'Susan (Enhanced)', quality: 8 },
+                    { name: 'Tom (Enhanced)', quality: 8 },
+                    // Standard voices (プリインストール)
+                    { name: 'Karen', quality: 7 },
+                    { name: 'Daniel', quality: 7 },
+                    { name: 'Moira', quality: 6 },
+                    { name: 'Rishi', quality: 6 }
+                ];
+                
+                // 最高品質の音声を探す
+                for (const pref of safariPreferences) {
+                    selectedVoice = voices.find(voice => 
+                        voice.name.includes(pref.name.replace(' (Enhanced)', '')) &&
+                        (pref.name.includes('Enhanced') ? voice.name.includes('Enhanced') : true)
+                    );
+                    if (selectedVoice) {
+                        console.log(`Safari音声選択: ${selectedVoice.name} (品質: ${pref.quality}/10)`);
+                        break;
+                    }
+                }
+            }
+            
+            // Chrome (Android)
+            else if (browser.isChrome && browser.isAndroid) {
+                // Chrome Android で最も自然な音声
+                const chromeAndroidPreferences = [
+                    // Google の高品質音声を優先
+                    /Google.*US.*English.*Female/i,  // 最も自然な女性音声
+                    /Google.*US.*English.*Male/i,    // 男性音声
+                    /Google.*UK.*English.*Female/i,  // イギリス英語女性
+                    /Google.*UK.*English.*Male/i,    // イギリス英語男性
+                    /English.*United States/i,       // 一般的な米国英語
+                    /en[-_]US/i                      // フォールバック
+                ];
+                
+                for (const pattern of chromeAndroidPreferences) {
+                    selectedVoice = voices.find(voice => 
+                        pattern.test(voice.name) && !voice.localService
+                    );
+                    if (selectedVoice) {
+                        console.log(`Chrome Android音声選択: ${selectedVoice.name}`);
+                        break;
+                    }
+                }
+            }
+            
+            // Chrome (iOS) - WebKitベースなのでSafariと同じ音声が使える
+            else if (browser.isChrome && browser.isIOS) {
+                // iOS Chrome は Safari と同じ音声を使用
+                const iOSChromePreferences = [
+                    'Samantha',
+                    'Alex',
+                    'Karen',
+                    'Daniel'
+                ];
+                
+                for (const name of iOSChromePreferences) {
+                    selectedVoice = voices.find(voice => voice.name.includes(name));
+                    if (selectedVoice) {
+                        console.log(`Chrome iOS音声選択: ${selectedVoice.name}`);
+                        break;
+                    }
+                }
+            }
+            
+            // Chrome (Desktop)
+            else if (browser.isChrome && !browser.isMobile) {
+                const chromeDesktopPreferences = [
+                    /Google US English/i,
+                    /Google UK English.*Female/i,
+                    /Google UK English.*Male/i,
+                    /Microsoft.*Zira/i,
+                    /Microsoft.*David/i
+                ];
+                
+                for (const pattern of chromeDesktopPreferences) {
+                    selectedVoice = voices.find(voice => pattern.test(voice.name));
+                    if (selectedVoice) {
+                        console.log(`Chrome Desktop音声選択: ${selectedVoice.name}`);
+                        break;
+                    }
+                }
+            }
+            
+            // フォールバック
+            if (!selectedVoice) {
+                // ネットワーク音声を優先（通常は高品質）
+                selectedVoice = voices.find(voice => 
+                    voice.lang.includes('en') && !voice.localService
+                ) || voices.find(voice => voice.lang.includes('en'));
+            }
+            
+            return selectedVoice;
+        }
 
         // 初期化処理
         window.addEventListener('DOMContentLoaded', function() {
+            const browser = detectBrowser();
+            console.log(`アプリ起動: ${browser.browser} on ${browser.isIOS ? 'iOS' : browser.isAndroid ? 'Android' : 'Desktop'}`);
+            
             // 音声合成APIのチェック
             if ('speechSynthesis' in window) {
                 isSpeechAvailable = true;
                 console.log('音声合成API利用可能');
                 
-                // 音声リストの読み込みを待つ
-                if (speechSynthesis.getVoices().length === 0) {
-                    speechSynthesis.addEventListener('voiceschanged', function() {
-                        console.log('音声リスト読み込み完了');
-                    });
+                const initVoices = () => {
+                    const voices = speechSynthesis.getVoices();
+                    if (voices.length > 0) {
+                        const bestVoice = selectBestVoiceForBrowser('en-US');
+                        if (bestVoice) {
+                            console.log(`推奨音声設定完了: ${bestVoice.name}`);
+                            
+                            // 音声エンジンをプリロード
+                            const silent = new SpeechSynthesisUtterance('');
+                            silent.voice = bestVoice;
+                            silent.volume = 0;
+                            speechSynthesis.speak(silent);
+                        }
+                    }
+                };
+                
+                // 音声リストの読み込み
+                if (speechSynthesis.onvoiceschanged !== undefined) {
+                    speechSynthesis.onvoiceschanged = initVoices;
+                } else {
+                    setTimeout(initVoices, 100);
                 }
+                
+                // Safari/Chrome別の初期化
+                if (browser.isSafari && browser.isIOS) {
+                    // iOS Safariの初期化
+                    document.addEventListener('click', function initSafari() {
+                        const utterance = new SpeechSynthesisUtterance('');
+                        utterance.volume = 0;
+                        speechSynthesis.speak(utterance);
+                        document.removeEventListener('click', initSafari);
+                        console.log('Safari iOS 音声初期化完了');
+                    }, { once: true });
+                }
+                
             } else {
                 console.error('音声合成APIが利用できません');
                 alert('お使いのブラウザは音声機能に対応していません。\nChrome、Edge、Safari等の最新ブラウザをご利用ください。');
@@ -580,6 +1182,9 @@
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
+            // ブラウザ情報を取得
+            const browser = detectBrowser();
+            
             // スタート画面を更新
             const startScreen = document.getElementById('startScreen');
             const modeInfo = {
@@ -603,7 +1208,71 @@
             
             startScreen.innerHTML = `
                 <h2>${modeInfo[mode].title}</h2>
-                <p>${modeInfo[mode].desc}<br>全20問のクイズに挑戦しましょう！</p>
+                <p>${modeInfo[mode].desc}<br>130問の中からランダムに10問出題されます！</p>
+                
+                <!-- カテゴリー選択 -->
+                <div class="category-selector" style="margin: 20px 0;">
+                    <h3 style="font-size: 1.2em; margin-bottom: 10px; color: #667eea;">
+                        <i class="fas fa-folder-open"></i> カテゴリーを選択
+                    </h3>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button class="category-btn ${currentCategory === 'all' ? 'active' : ''}" 
+                                onclick="selectCategory('all')" 
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'all' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'all' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            <i class="fas fa-globe"></i> 全て (130問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'greeting' ? 'active' : ''}" 
+                                onclick="selectCategory('greeting')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'greeting' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'greeting' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🙋 挨拶 (3問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'airport' ? 'active' : ''}" 
+                                onclick="selectCategory('airport')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'airport' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'airport' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            ✈️ 空港 (24問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'hotel' ? 'active' : ''}" 
+                                onclick="selectCategory('hotel')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'hotel' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'hotel' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🏨 ホテル (16問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'restaurant' ? 'active' : ''}" 
+                                onclick="selectCategory('restaurant')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'restaurant' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'restaurant' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🍽️ レストラン (26問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'shopping' ? 'active' : ''}" 
+                                onclick="selectCategory('shopping')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'shopping' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'shopping' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🛍️ 買い物 (20問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'transportation' ? 'active' : ''}" 
+                                onclick="selectCategory('transportation')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'transportation' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'transportation' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🚕 交通 (19問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'emergency' ? 'active' : ''}" 
+                                onclick="selectCategory('emergency')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'emergency' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'emergency' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            🚨 緊急時 (18問)
+                        </button>
+                        <button class="category-btn ${currentCategory === 'communication' ? 'active' : ''}" 
+                                onclick="selectCategory('communication')"
+                                style="padding: 8px 15px; border: 2px solid #667eea; background: ${currentCategory === 'communication' ? '#667eea' : 'white'}; 
+                                       color: ${currentCategory === 'communication' ? 'white' : '#667eea'}; border-radius: 20px; cursor: pointer; font-size: 0.9em;">
+                            💬 会話 (4問)
+                        </button>
+                    </div>
+                </div>
+                
                 <button class="start-btn" onclick="startQuiz()">
                     クイズを開始 🚀
                 </button>
@@ -612,18 +1281,49 @@
                     <button class="voice-btn" onclick="testVoice()" style="font-size: 0.9em; padding: 10px 20px;">
                         🔊 音声テスト
                     </button>
+                    <button class="voice-btn" onclick="checkVoiceQuality()" style="font-size: 0.9em; padding: 10px 20px; background: #673ab7;">
+                        🎯 音声品質診断
+                    </button>
                     ${mode === 'speaking' ? `
                         <button class="voice-btn" onclick="testMicrophone()" style="font-size: 0.9em; padding: 10px 20px; background: #ff9800;">
                             🎤 マイクテスト
                         </button>
                     ` : ''}
                 </div>
+                <p style="color: #666; font-size: 0.85em; margin-top: 20px;">
+                    ${browser.browser === 'Safari' && browser.isIOS ? 
+                        '💡 Safari iOSをご利用中：高品質音声(Samantha Enhanced)が利用可能です' :
+                      browser.browser === 'Chrome' && browser.isAndroid ? 
+                        '💡 Chrome Androidをご利用中：Google音声で自然な発音が可能です' :
+                      browser.browser === 'Chrome' && browser.isIOS ? 
+                        '💡 Chrome iOSをご利用中：Safari同様の高品質音声が利用可能です' :
+                        '💡 音声品質診断で最適な設定を確認できます'
+                    }
+                </p>
                 ${mode === 'speaking' ? `
-                    <p style="color: #666; font-size: 0.9em; margin-top: 20px;">
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">
                         ※ 発音クイズを始める前に、マイクテストで動作確認をお勧めします
                     </p>
                 ` : ''}
             `;
+        }
+
+        // カテゴリー選択
+        function selectCategory(category) {
+            currentCategory = category;
+            // カテゴリーボタンの見た目を更新
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                const btnCategory = btn.getAttribute('onclick').match(/selectCategory\('(.+?)'\)/)[1];
+                if (btnCategory === category) {
+                    btn.style.background = '#667eea';
+                    btn.style.color = 'white';
+                    btn.classList.add('active');
+                } else {
+                    btn.style.background = 'white';
+                    btn.style.color = '#667eea';
+                    btn.classList.remove('active');
+                }
+            });
         }
 
         // クイズ開始
@@ -666,7 +1366,24 @@
             
             currentQuestionIndex = 0;
             score = 0;
-            questions = [...phrases].sort(() => Math.random() - 0.5);
+            
+            // カテゴリーに応じて問題をフィルタリング
+            let availableQuestions = [...phrases];
+            if (currentCategory !== 'all') {
+                availableQuestions = phrases.filter(p => p.category === currentCategory);
+            }
+            
+            // 問題が10問未満の場合の処理
+            if (availableQuestions.length < QUESTIONS_PER_QUIZ) {
+                // 問題が少ない場合は全問題を使用
+                questions = [...availableQuestions].sort(() => Math.random() - 0.5);
+            } else {
+                // ランダムに10問選択
+                questions = [];
+                const shuffled = [...availableQuestions].sort(() => Math.random() - 0.5);
+                questions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+            }
+            
             initSpeechRecognition();
             showQuestion();
         }
@@ -687,7 +1404,17 @@
                     <div class="quiz-progress-bar" style="width: ${(currentQuestionIndex / questions.length) * 100}%"></div>
                 </div>
                 <div class="quiz-header">
-                    <div class="quiz-counter">問題 ${currentQuestionIndex + 1} / ${questions.length}</div>
+                    <div class="quiz-counter">
+                        ${currentQuestion.category === 'greeting' ? '🙋' : 
+                          currentQuestion.category === 'airport' ? '✈️' :
+                          currentQuestion.category === 'hotel' ? '🏨' :
+                          currentQuestion.category === 'restaurant' ? '🍽️' :
+                          currentQuestion.category === 'shopping' ? '🛍️' :
+                          currentQuestion.category === 'transportation' ? '🚕' :
+                          currentQuestion.category === 'emergency' ? '🚨' :
+                          currentQuestion.category === 'communication' ? '💬' : ''}
+                        問題 ${currentQuestionIndex + 1} / ${questions.length}
+                    </div>
                     <div class="quiz-score">スコア: ${score}</div>
                 </div>
                 <div class="quiz-content" id="quizContent">
@@ -779,75 +1506,208 @@
             const correct = currentQuestion[type];
             const options = [correct];
             
-            // 他の選択肢を追加
-            const others = phrases
-                .filter(p => p.id !== currentQuestion.id)
-                .map(p => p[type])
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 3);
+            // 同じカテゴリーから優先的に選択肢を作成
+            let sameCategory = phrases
+                .filter(p => p.id !== currentQuestion.id && p.category === currentQuestion.category)
+                .map(p => p[type]);
             
-            options.push(...others);
+            // 同じカテゴリーに十分な選択肢がない場合は他のカテゴリーからも選択
+            let otherCategory = phrases
+                .filter(p => p.id !== currentQuestion.id && p.category !== currentQuestion.category)
+                .map(p => p[type]);
+            
+            // まず同じカテゴリーから選択肢を追加
+            const shuffledSame = sameCategory.sort(() => Math.random() - 0.5);
+            const shuffledOther = otherCategory.sort(() => Math.random() - 0.5);
+            
+            let addedCount = 0;
+            for (let i = 0; i < shuffledSame.length && addedCount < 3; i++) {
+                if (!options.includes(shuffledSame[i])) {
+                    options.push(shuffledSame[i]);
+                    addedCount++;
+                }
+            }
+            
+            // 足りない分を他のカテゴリーから補充
+            for (let i = 0; i < shuffledOther.length && addedCount < 3; i++) {
+                if (!options.includes(shuffledOther[i])) {
+                    options.push(shuffledOther[i]);
+                    addedCount++;
+                }
+            }
+            
             return options.sort(() => Math.random() - 0.5);
         }
 
-        // 音声再生
+        // 音声再生（ブラウザ最適化版）
         function playQuestionAudio() {
-            if (!isSpeechAvailable) {
+            if (!window.speechSynthesis) {
                 alert('音声機能が利用できません');
                 return;
             }
             
             try {
-                // 既存の音声を停止
                 window.speechSynthesis.cancel();
                 
-                const utterance = new SpeechSynthesisUtterance(currentQuestion.english);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                utterance.pitch = 1.0;
-                utterance.volume = 1.0;
-                
-                // エラーハンドリング
-                utterance.onerror = function(event) {
-                    console.error('音声再生エラー:', event);
-                    alert('音声再生でエラーが発生しました');
-                };
-                
-                // 再生
-                window.speechSynthesis.speak(utterance);
-                console.log('音声再生:', currentQuestion.english);
+                setTimeout(() => {
+                    const utterance = new SpeechSynthesisUtterance(currentQuestion.english);
+                    const browser = detectBrowser();
+                    
+                    // ブラウザに最適な音声を選択
+                    const voice = selectBestVoiceForBrowser('en-US');
+                    if (voice) {
+                        utterance.voice = voice;
+                    }
+                    
+                    // ブラウザ別の最適化設定
+                    if (browser.isSafari && browser.isIOS) {
+                        // Safari iOS の最適設定
+                        utterance.rate = 0.95;    // わずかに遅め
+                        utterance.pitch = 1.0;    // 標準ピッチ
+                        utterance.volume = 1.0;
+                        
+                        // Samantha音声の場合の特別調整
+                        if (voice && voice.name.includes('Samantha')) {
+                            utterance.rate = 1.0;  // Samanthaは標準速度が最適
+                        }
+                    } 
+                    else if (browser.isChrome && browser.isAndroid) {
+                        // Chrome Android の最適設定
+                        utterance.rate = 0.85;    // ゆっくりめ
+                        utterance.pitch = 1.02;   // わずかに高め
+                        utterance.volume = 1.0;
+                    }
+                    else if (browser.isChrome && browser.isIOS) {
+                        // Chrome iOS (WebKitベース)
+                        utterance.rate = 0.95;
+                        utterance.pitch = 1.0;
+                        utterance.volume = 1.0;
+                    }
+                    else {
+                        // その他のブラウザ
+                        utterance.rate = 0.9;
+                        utterance.pitch = 1.0;
+                        utterance.volume = 1.0;
+                    }
+                    
+                    utterance.lang = 'en-US';
+                    
+                    // デバッグ情報
+                    utterance.onstart = () => {
+                        console.log(`再生開始: ${voice?.name || 'デフォルト'} (${browser.browser})`);
+                    };
+                    
+                    utterance.onerror = (event) => {
+                        console.error('音声エラー:', event);
+                        // エラー時は簡易設定で再試行
+                        retrySimpleVoice(currentQuestion.english);
+                    };
+                    
+                    window.speechSynthesis.speak(utterance);
+                    
+                }, 100);
             } catch (error) {
                 console.error('音声再生エラー:', error);
-                alert('音声機能が利用できません');
             }
         }
 
         function playAnswer() {
-            if (!isSpeechAvailable) {
+            if (!window.speechSynthesis) {
                 alert('音声機能が利用できません');
                 return;
             }
             
             try {
-                // 既存の音声を停止
                 window.speechSynthesis.cancel();
                 
-                const utterance = new SpeechSynthesisUtterance(currentQuestion.english);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.8;
-                utterance.pitch = 1.0;
-                utterance.volume = 1.0;
-                
-                utterance.onerror = function(event) {
-                    console.error('音声再生エラー:', event);
-                };
-                
-                window.speechSynthesis.speak(utterance);
-                console.log('お手本音声再生:', currentQuestion.english);
+                setTimeout(() => {
+                    const utterance = new SpeechSynthesisUtterance(currentQuestion.english);
+                    const browser = detectBrowser();
+                    
+                    const voice = selectBestVoiceForBrowser('en-US');
+                    if (voice) {
+                        utterance.voice = voice;
+                    }
+                    
+                    // お手本はさらにゆっくり
+                    if (browser.isSafari && browser.isIOS) {
+                        utterance.rate = 0.8;
+                        utterance.pitch = 1.0;
+                    } else if (browser.isChrome && browser.isAndroid) {
+                        utterance.rate = 0.75;
+                        utterance.pitch = 1.02;
+                    } else {
+                        utterance.rate = 0.8;
+                        utterance.pitch = 1.0;
+                    }
+                    
+                    utterance.lang = 'en-US';
+                    utterance.volume = 1.0;
+                    
+                    utterance.onerror = (event) => {
+                        console.error('音声エラー:', event);
+                        retrySimpleVoice(currentQuestion.english);
+                    };
+                    
+                    window.speechSynthesis.speak(utterance);
+                    console.log('お手本音声再生:', currentQuestion.english);
+                }, 100);
             } catch (error) {
                 console.error('音声再生エラー:', error);
                 alert('音声機能が利用できません');
             }
+        }
+
+        // シンプルな再試行関数
+        function retrySimpleVoice(text) {
+            try {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                window.speechSynthesis.speak(utterance);
+                console.log('シンプル設定で再生');
+            } catch (error) {
+                console.error('再試行も失敗:', error);
+            }
+        }
+
+        // 音声品質チェック機能
+        function checkVoiceQuality() {
+            const voices = window.speechSynthesis.getVoices();
+            const browser = detectBrowser();
+            const recommendedVoice = selectBestVoiceForBrowser('en-US');
+            
+            let qualityInfo = `
+=== 音声品質診断結果 ===
+ブラウザ: ${browser.browser}
+デバイス: ${browser.isIOS ? 'iOS' : browser.isAndroid ? 'Android' : 'PC'}
+利用可能な音声数: ${voices.length}
+推奨音声: ${recommendedVoice ? recommendedVoice.name : 'なし'}
+`;
+            
+            // ブラウザ別のアドバイス
+            if (browser.isSafari && browser.isIOS) {
+                qualityInfo += `
+
+【Safari iOSユーザーへ】
+最高品質の音声を使用するには：
+1. 設定 > アクセシビリティ > 読み上げコンテンツ
+2. 声 > 英語 > Samantha (拡張) をダウンロード
+※ Enhanced版は約200MBですが、非常に自然な音声です`;
+            } else if (browser.isChrome && browser.isAndroid) {
+                qualityInfo += `
+
+【Chrome Androidユーザーへ】
+音声品質を向上させるには：
+1. 設定 > 言語と入力 > テキスト読み上げ
+2. 優先するエンジン > Google を選択
+3. 設定で高品質音声をダウンロード`;
+            }
+            
+            console.log(qualityInfo);
+            alert(qualityInfo);
         }
 
         // 回答チェック（選択式）
@@ -862,12 +1722,22 @@
             
             if (isCorrect) {
                 score++;
-                showFeedback(true, '正解！🎉');
-                // 正解の場合、英語フレーズを読み上げる
-                if (isSpeechAvailable && currentMode === 'translate') {
+                let feedbackMessage = '正解！🎉';
+                
+                // リスニングモードの場合、正解の英文を追加表示
+                if (currentMode === 'listening') {
+                    feedbackMessage += `<br><br>英文: <strong>"${currentQuestion.english}"</strong>`;
+                }
+                
+                showFeedback(true, feedbackMessage);
+                
+                // 正解の場合、英語フレーズを読み上げる（翻訳モードとリスニングモード両方）
+                if (isSpeechAvailable && (currentMode === 'translate' || currentMode === 'listening')) {
                     setTimeout(() => {
                         try {
                             const utterance = new SpeechSynthesisUtterance(currentQuestion.english);
+                            const voice = selectBestVoiceForBrowser('en-US');
+                            if (voice) utterance.voice = voice;
                             utterance.lang = 'en-US';
                             utterance.rate = 0.9;
                             window.speechSynthesis.speak(utterance);
@@ -877,7 +1747,21 @@
                     }, 500);
                 }
             } else {
-                showFeedback(false, `不正解... 正解は「${correct}」でした`);
+                let feedbackMessage = `不正解... 正解は「${correct}」でした`;
+                
+                // リスニングモードの場合、正解の英文と選択した答えの英文を表示
+                if (currentMode === 'listening') {
+                    feedbackMessage += `<br><br>正解の英文: <strong>"${currentQuestion.english}"</strong>`;
+                    
+                    // ユーザーが選んだ選択肢に対応する英文を探す
+                    const selectedPhrase = phrases.find(p => p.japanese === answer);
+                    if (selectedPhrase && selectedPhrase.english !== currentQuestion.english) {
+                        feedbackMessage += `<br>あなたが選んだ「${answer}」の英文: <strong>"${selectedPhrase.english}"</strong>`;
+                    }
+                }
+                
+                showFeedback(false, feedbackMessage);
+                
                 // 正解を表示
                 document.querySelectorAll('.answer-btn').forEach(btn => {
                     if (btn.textContent.trim() === correct) {
@@ -889,7 +1773,7 @@
             setTimeout(() => {
                 currentQuestionIndex++;
                 showQuestion();
-            }, 2000);
+            }, currentMode === 'listening' ? 3500 : 2000); // リスニングモードは少し長めに表示
         }
 
         // 音声認識開始
@@ -1057,6 +1941,8 @@
                     setTimeout(() => {
                         try {
                             const utterance = new SpeechSynthesisUtterance(correct);
+                            const voice = selectBestVoiceForBrowser('en-US');
+                            if (voice) utterance.voice = voice;
                             utterance.lang = 'en-US';
                             utterance.rate = 0.9;
                             window.speechSynthesis.speak(utterance);
@@ -1090,13 +1976,15 @@
             const content = document.getElementById('quizContent');
             const feedback = document.createElement('div');
             feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-            feedback.textContent = message;
+            feedback.innerHTML = message; // textContentからinnerHTMLに変更してHTMLタグを有効化
             content.appendChild(feedback);
             
             // 正解音/不正解音を再生
             try {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(isCorrect ? 'Good job!' : 'Try again');
+                const voice = selectBestVoiceForBrowser('en-US');
+                if (voice) utterance.voice = voice;
                 utterance.lang = 'en-US';
                 utterance.rate = 1.2;
                 utterance.volume = 0.5;
@@ -1159,6 +2047,18 @@
                 emoji = '💪';
             }
             
+            const categoryName = {
+                all: '全カテゴリー',
+                greeting: '挨拶',
+                airport: '空港',
+                hotel: 'ホテル',
+                restaurant: 'レストラン',
+                shopping: '買い物',
+                transportation: '交通',
+                emergency: '緊急時',
+                communication: '会話'
+            };
+            
             const container = document.getElementById('quizContainer');
             container.innerHTML = `
                 <div class="results-container">
@@ -1168,6 +2068,7 @@
                     <div class="results-details">
                         <p>正答率: ${percentage}%</p>
                         <p>モード: ${getCurrentModeName()}</p>
+                        <p>カテゴリー: ${categoryName[currentCategory]}</p>
                     </div>
                     <button class="restart-btn" onclick="location.reload()">
                         もう一度挑戦する 🔄
@@ -1179,6 +2080,8 @@
             try {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(`Great job! You scored ${score} out of ${questions.length}.`);
+                const voice = selectBestVoiceForBrowser('en-US');
+                if (voice) utterance.voice = voice;
                 utterance.lang = 'en-US';
                 utterance.rate = 1.0;
                 window.speechSynthesis.speak(utterance);
@@ -1198,28 +2101,62 @@
             return names[currentMode];
         }
 
-        // 音声テスト
+        // 音声テスト（最適化版）
         function testVoice() {
-            if (!isSpeechAvailable) {
-                alert('音声機能が利用できません。\nブラウザを確認してください。');
+            if (!window.speechSynthesis) {
+                alert('音声機能が利用できません');
                 return;
             }
             
             try {
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance('Hello! Voice test successful.');
-                utterance.lang = 'en-US';
-                utterance.rate = 1.0;
                 
-                utterance.onend = function() {
-                    alert('音声テスト成功！音声機能が正常に動作しています。');
+                const browser = detectBrowser();
+                const testPhrases = {
+                    Safari: "Hello! This is Safari's voice test. How does this sound?",
+                    Chrome: "Hello! This is Chrome's voice test. Can you hear me clearly?",
+                    Other: "Hello! Testing voice quality. How natural does this sound?"
                 };
                 
-                utterance.onerror = function(event) {
-                    alert('音声テスト失敗: ' + event.error);
+                const utterance = new SpeechSynthesisUtterance(testPhrases[browser.browser]);
+                const voice = selectBestVoiceForBrowser('en-US');
+                
+                if (voice) {
+                    utterance.voice = voice;
+                }
+                
+                // ブラウザ別設定
+                if (browser.isSafari && browser.isIOS) {
+                    utterance.rate = 0.95;
+                    utterance.pitch = 1.0;
+                } else if (browser.isChrome && browser.isAndroid) {
+                    utterance.rate = 0.85;
+                    utterance.pitch = 1.02;
+                } else {
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.0;
+                }
+                
+                utterance.lang = 'en-US';
+                utterance.volume = 1.0;
+                
+                utterance.onend = () => {
+                    const quality = voice?.name.includes('Enhanced') ? '最高品質' : 
+                                   voice?.name.includes('Google') ? '高品質' : '標準品質';
+                    
+                    alert(`
+音声テスト完了！ ✅
+
+ブラウザ: ${browser.browser}
+使用音声: ${voice ? voice.name : 'デフォルト'}
+音声品質: ${quality}
+
+より自然な音声にするには「音声品質診断」をお試しください。
+                    `);
                 };
                 
                 window.speechSynthesis.speak(utterance);
+                
             } catch (error) {
                 alert('音声テストエラー: ' + error.message);
             }
@@ -1276,6 +2213,9 @@
                 }
             }
         }
+
+        // タッチデバイスのサポート
+        document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
 </html>
